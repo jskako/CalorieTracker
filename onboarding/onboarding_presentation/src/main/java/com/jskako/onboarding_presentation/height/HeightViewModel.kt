@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.domain.uce_case.FilterOutDigits
 import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HeightViewModel @Inject constructor(
-    private val preferences: Preferences,
+    private val appPreferences: AppPreferences,
     private val filterOutDigits: FilterOutDigits
 ) : ViewModel() {
 
@@ -44,7 +44,7 @@ class HeightViewModel @Inject constructor(
                 )
                 return@launch
             }
-            preferences.saveHeight(heightNumber)
+            appPreferences.saveHeight(heightNumber)
             _uiEvent.send(UiEvent.Navigate(Route.WEIGHT))
         }
     }

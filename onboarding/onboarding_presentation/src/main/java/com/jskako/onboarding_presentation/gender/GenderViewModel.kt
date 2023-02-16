@@ -5,9 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jskako.core.domain.DefaultPreferences
 import com.jskako.core.domain.models.Gender
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenderViewModel @Inject constructor(
-    private val preferences: Preferences
+    private val appPreferences: AppPreferences
 ): ViewModel() {
 
     var selectedGender by mutableStateOf<Gender>(Gender.Male)
@@ -33,7 +32,7 @@ class GenderViewModel @Inject constructor(
 
     fun onNextClick() {
         viewModelScope.launch {
-            preferences.saveGender(selectedGender)
+            appPreferences.saveGender(selectedGender)
             _uiEvent.send(UiEvent.Navigate(Route.AGE))
         }
     }

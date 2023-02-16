@@ -1,23 +1,25 @@
-package com.jskako.core.domain
+package com.jskako.core.data.preferences
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.jskako.core.domain.preferences.Preferences as AppPreferences
+import com.jskako.core.domain.preferences.AppPreferences as AppPreferences
 import com.jskako.core.domain.models.ActivityLevel
 import com.jskako.core.domain.models.Gender
 import com.jskako.core.domain.models.GoalType
 import com.jskako.core.domain.models.UserInfo
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_ACTIVITY_LEVEL
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_AGE
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_CARB_RATIO
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_FAT_RATIO
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_GENDER
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_GOAL_TYPE
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_HEIGHT
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_PROTEIN_RATIO
-import com.jskako.core.domain.preferences.Preferences.Companion.KEY_WEIGHT
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_ACTIVITY_LEVEL
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_AGE
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_CARB_RATIO
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_FAT_RATIO
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_GENDER
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_GOAL_TYPE
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_HEIGHT
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_PROTEIN_RATIO
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_SHOULD_SHOW_ONBOARDING
+import com.jskako.core.domain.preferences.AppPreferences.Companion.KEY_WEIGHT
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 
@@ -76,6 +78,18 @@ class DefaultPreferences(
         dataStore.edit { preferences ->
             preferences[KEY_FAT_RATIO] = ratio
         }
+    }
+
+    override suspend fun saveShouldShowOnBoarding(shouldShow: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[KEY_SHOULD_SHOW_ONBOARDING] = shouldShow
+        }
+    }
+
+    override suspend fun loadShouldShowOnBoarding(): Boolean {
+        return dataStore.data.map { preferences ->
+            preferences[KEY_SHOULD_SHOW_ONBOARDING] ?: true
+        }.first()
     }
 
     override suspend fun loadUserInfo(): Flow<UserInfo> = dataStore.data.map { preferences ->

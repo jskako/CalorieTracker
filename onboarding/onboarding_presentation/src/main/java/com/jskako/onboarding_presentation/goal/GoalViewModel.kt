@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskako.core.domain.models.GoalType
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GoalViewModel @Inject constructor(
-    private val preferences: Preferences
+    private val appPreferences: AppPreferences
 ): ViewModel() {
 
     var selectedGoal by mutableStateOf<GoalType>(
@@ -34,7 +34,7 @@ class GoalViewModel @Inject constructor(
 
     fun onNextClick() {
         viewModelScope.launch {
-            preferences.saveGoalType(selectedGoal)
+            appPreferences.saveGoalType(selectedGoal)
             _uiEvent.send(UiEvent.Navigate(Route.NUTRIENT_GOAL))
         }
     }

@@ -1,6 +1,6 @@
 package com.jskako.tracker_domain.di
 
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.tracker_domain.repository.TrackerRepository
 import com.jskako.tracker_domain.use_case.*
 import dagger.Module
@@ -17,14 +17,14 @@ object TrackerDomainModule {
     @Provides
     fun provideTrackerUseCases(
         repository: TrackerRepository,
-        preferences: Preferences
+        appPreferences: AppPreferences
     ): TrackerUseCases {
         return TrackerUseCases(
             trackFood = TrackFood(repository),
             searchFood = SearchFood(repository),
             getFoodsForDate = GetFoodsForDate(repository),
             deleteTrackedFood = DeleteTrackedFood(repository),
-            calculateMealNutrients = CalculateMealNutrients(preferences)
+            calculateMealNutrients = CalculateMealNutrients(appPreferences)
         )
     }
 }

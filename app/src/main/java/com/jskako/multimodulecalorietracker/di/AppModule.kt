@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.jskako.core.domain.DefaultPreferences
+import com.jskako.core.data.preferences.DefaultPreferences
 import com.jskako.core.domain.uce_case.FilterOutDigits
 import dagger.Module
 import dagger.Provides
@@ -29,7 +29,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePreferences(dataStore: DataStore<Preferences>): com.jskako.core.domain.preferences.Preferences {
+    fun providePreferences(dataStore: DataStore<Preferences>): com.jskako.core.domain.preferences.AppPreferences {
         return DefaultPreferences(dataStore)
     }
 

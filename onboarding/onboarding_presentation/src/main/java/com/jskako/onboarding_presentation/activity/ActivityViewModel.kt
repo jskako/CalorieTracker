@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskako.core.domain.models.ActivityLevel
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
-    private val preferences: Preferences
+    private val appPreferences: AppPreferences
 ) : ViewModel() {
 
     var selectedActivityLevel by mutableStateOf<ActivityLevel>(
@@ -34,7 +34,7 @@ class ActivityViewModel @Inject constructor(
 
     fun onNextClick() {
         viewModelScope.launch {
-            preferences.saveActivityLevel(selectedActivityLevel)
+            appPreferences.saveActivityLevel(selectedActivityLevel)
             _uiEvent.send(UiEvent.Navigate(Route.GOAL))
         }
     }

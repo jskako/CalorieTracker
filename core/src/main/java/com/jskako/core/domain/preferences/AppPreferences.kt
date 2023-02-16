@@ -1,5 +1,6 @@
 package com.jskako.core.domain.preferences
 
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -9,7 +10,7 @@ import com.jskako.core.domain.models.GoalType
 import com.jskako.core.domain.models.UserInfo
 import kotlinx.coroutines.flow.Flow
 
-interface Preferences {
+interface AppPreferences {
     suspend fun saveGender(gender: Gender)
     suspend fun saveAge(age: Int)
     suspend fun saveWeight(weight: Float)
@@ -22,6 +23,9 @@ interface Preferences {
 
     suspend fun loadUserInfo(): Flow<UserInfo>
 
+    suspend fun saveShouldShowOnBoarding(shouldShow: Boolean)
+    suspend fun loadShouldShowOnBoarding(): Boolean
+
     companion object {
         val KEY_GENDER = stringPreferencesKey("gender")
         val KEY_AGE = intPreferencesKey("age")
@@ -32,5 +36,6 @@ interface Preferences {
         val KEY_CARB_RATIO = floatPreferencesKey("carb_ratio")
         val KEY_PROTEIN_RATIO = floatPreferencesKey("protein_ratio")
         val KEY_FAT_RATIO = floatPreferencesKey("fat_ratio")
+        val KEY_SHOULD_SHOW_ONBOARDING = booleanPreferencesKey("should_show_onboarding")
     }
 }

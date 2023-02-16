@@ -4,7 +4,7 @@ import com.jskako.core.domain.models.ActivityLevel
 import com.jskako.core.domain.models.Gender
 import com.jskako.core.domain.models.GoalType
 import com.jskako.core.domain.models.UserInfo
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.tracker_domain.model.MealType
 import com.jskako.tracker_domain.model.TrackedFood
 import kotlinx.coroutines.flow.buffer
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlin.math.roundToInt
 
 class CalculateMealNutrients(
-    private val preferences: Preferences
+    private val appPreferences: AppPreferences
 ) {
 
     suspend operator fun invoke(trackedFoods: List<TrackedFood>): Result {
@@ -35,7 +35,7 @@ class CalculateMealNutrients(
         val totalFat = allNutrients.values.sumOf { it.fat }
         val totalCalories = allNutrients.values.sumOf { it.calories }
 
-        val userInfo = preferences.loadUserInfo().first()
+        val userInfo = appPreferences.loadUserInfo().first()
 
         val caloryGoal = dailyCaloryRequirement(userInfo)
         val carbsGoal = (caloryGoal * userInfo.carbRatio / 4f).roundToInt()

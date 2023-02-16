@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jskako.core.domain.preferences.Preferences
+import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.domain.uce_case.FilterOutDigits
 import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NutrientGoalViewModel @Inject constructor(
-    private val preferences: Preferences,
+    private val appPreferences: AppPreferences,
     private val filterOutDigits: FilterOutDigits,
     private val validateNutrients: ValidateNutrients
 ): ViewModel() {
@@ -55,9 +55,9 @@ class NutrientGoalViewModel @Inject constructor(
                 when(result) {
                     is ValidateNutrients.Result.Success -> {
                         viewModelScope.launch {
-                            preferences.saveCarbRatio(result.carbsRatio)
-                            preferences.saveProteinRatio(result.proteinRatio)
-                            preferences.saveFatRatio(result.fatRatio)
+                            appPreferences.saveCarbRatio(result.carbsRatio)
+                            appPreferences.saveProteinRatio(result.proteinRatio)
+                            appPreferences.saveFatRatio(result.fatRatio)
                             _uiEvent.send(UiEvent.Navigate(Route.TRACKER_OVERVIEW))
                         }
                     }
