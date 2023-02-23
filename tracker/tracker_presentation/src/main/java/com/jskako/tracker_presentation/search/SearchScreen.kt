@@ -23,7 +23,6 @@ import com.jskako.core_ui.LocalSpacing
 import com.jskako.tracker_domain.model.MealType
 import com.jskako.tracker_presentation.components.TrackableFoodItem
 import com.jskako.tracker_presentation.search.components.SearchTextField
-import kotlinx.coroutines.flow.collect
 import java.time.LocalDate
 
 @OptIn(ExperimentalCoilApi::class)
@@ -35,7 +34,7 @@ fun SearchScreen(
     dayOfMonth: Int,
     month: Int,
     year: Int,
-    onNavigateUp: () -> Unit,
+    onNextClick: () -> Unit,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
@@ -51,7 +50,7 @@ fun SearchScreen(
                     )
                     keyboardController?.hide()
                 }
-                is UiEvent.NavigateUp -> onNavigateUp()
+                is UiEvent.NavigateUp -> onNextClick()
                 else -> Unit
             }
         }

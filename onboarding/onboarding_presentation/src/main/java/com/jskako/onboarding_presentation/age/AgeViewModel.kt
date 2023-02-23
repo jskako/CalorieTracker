@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.domain.uce_case.FilterOutDigits
-import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
 import com.jskako.core.util.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,7 +44,7 @@ class AgeViewModel @Inject constructor(
                 return@launch
             }
             appPreferences.saveAge(ageNumber)
-            _uiEvent.send(UiEvent.Navigate(Route.HEIGHT))
+            _uiEvent.send(UiEvent.Success)
         }
     }
 }

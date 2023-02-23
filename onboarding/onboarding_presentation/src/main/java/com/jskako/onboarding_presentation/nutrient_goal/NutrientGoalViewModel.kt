@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskako.core.domain.preferences.AppPreferences
 import com.jskako.core.domain.uce_case.FilterOutDigits
-import com.jskako.core.navigation.Route
 import com.jskako.core.util.UiEvent
 import com.jskako.onboarding_domain.use_case.ValidateNutrients
 import kotlinx.coroutines.channels.Channel
@@ -58,7 +57,7 @@ class NutrientGoalViewModel @Inject constructor(
                             appPreferences.saveCarbRatio(result.carbsRatio)
                             appPreferences.saveProteinRatio(result.proteinRatio)
                             appPreferences.saveFatRatio(result.fatRatio)
-                            _uiEvent.send(UiEvent.Navigate(Route.TRACKER_OVERVIEW))
+                            _uiEvent.send(UiEvent.Success)
                         }
                     }
                     is ValidateNutrients.Result.Error -> {
